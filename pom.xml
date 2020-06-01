@@ -6,7 +6,14 @@
 
     <groupId>com.mistra</groupId>
     <artifactId>jmt</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>service-center</module>
+        <module>config-server</module>
+        <module>admin-server</module>
+        <module>jmt-core</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
