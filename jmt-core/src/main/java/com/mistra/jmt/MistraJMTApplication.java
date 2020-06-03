@@ -1,5 +1,6 @@
 package com.mistra.jmt;
 
+import com.mistra.jmt.core.EnableJMT;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
+@EnableJMT
 @SpringBootApplication
 public class MistraJMTApplication {
 
