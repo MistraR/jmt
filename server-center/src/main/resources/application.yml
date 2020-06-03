@@ -2,7 +2,7 @@ server:
   port: 8880
 spring:
   application:
-    name: service-server
+    name: server-center
   profiles:
     active: dev
 

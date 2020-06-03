@@ -13,9 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 @SpringBootApplication
-public class ServiceCenterApplication {
+public class ServerCenterApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceCenterApplication.class, args);
+        SpringApplication.run(ServerCenterApplication.class, args);
     }
 }
