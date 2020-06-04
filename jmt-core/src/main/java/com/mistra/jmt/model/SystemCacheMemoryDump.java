@@ -16,5 +16,5 @@ import java.io.Serializable;
  */
 @Data
 @Table(name = "system_cache_memory_dump")
-public class SystemCacheMemoryDump extends BaseEntity implements Serializable {
+public class SystemCacheMemoryDump extends JMTBaseEntity implements Serializable {
 }

@@ -16,5 +16,5 @@ import java.io.Serializable;
  */
 @Data
 @Table(name = "job_queue_memory_dump")
-public class JobQueueMemoryDump extends BaseEntity implements Serializable {
+public class JobQueueMemoryDump extends JMTBaseEntity implements Serializable {
 }
