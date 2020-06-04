@@ -13,12 +13,12 @@ import java.util.Set;
  * @author Mistra
  * @ Version: 1.0
  * @ Time: 2020/6/1 22:33
- * @ Description:
+ * @ Description: 计算某个对象所占用的内存大小
  * @ Copyright (c) Mistra,All Rights Reserved.
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
-public class SizeOfObject {
+public class SizeOfObjectUtil {
 
     static Instrumentation inst;
 
@@ -27,12 +27,12 @@ public class SizeOfObject {
     }
 
     /**
-     * 直接计算当前对象占用空间大小，包括当前类及超类的基本类型实例字段大小、<br></br>
-     * 引用类型实例字段引用大小、实例基本类型数组总占用空间、实例引用类型数组引用本身占用空间大小;<br></br>
-     * 但是不包括超类继承下来的和当前类声明的实例引用字段的对象本身的大小、实例引用数组引用的对象本身的大小 <br></br>
+     * 直接计算当前对象占用空间大小，包括当前类及超类的基本类型实例字段大小、
+     * 引用类型实例字段引用大小、实例基本类型数组总占用空间、实例引用类型数组引用本身占用空间大小;
+     * 但是不包括超类继承下来的和当前类声明的实例引用字段的对象本身的大小、实例引用数组引用的对象本身的大小
      *
-     * @param obj
-     * @return
+     * @param obj 对象
+     * @return 对象所占用内存大小
      */
     public static long sizeOf(Object obj) {
         return inst.getObjectSize(obj);
@@ -41,9 +41,9 @@ public class SizeOfObject {
     /**
      * 递归计算当前对象占用空间总大小，包括当前类和超类的实例字段大小以及实例字段引用对象大小
      *
-     * @param objP
-     * @return
-     * @throws IllegalAccessException
+     * @param objP 对象
+     * @return 对象所占用内存大小
+     * @throws IllegalAccessException 异常
      */
     public static long fullSizeOf(Object objP) throws IllegalAccessException {
         Set<Object> visited = new HashSet<Object>();
@@ -70,11 +70,10 @@ public class SizeOfObject {
                 while (tmpObjClass != null) {
                     Field[] fields = tmpObjClass.getDeclaredFields();
                     for (Field field : fields) {
-                        if (Modifier.isStatic(field.getModifiers())   //静态不计
-                                || field.getType().isPrimitive()) {    //基本类型不重复计
+                        if (Modifier.isStatic(field.getModifiers()) || field.getType().isPrimitive()) {
+                            //静态变量不计，基本类型不重复计
                             continue;
                         }
-
                         field.setAccessible(true);
                         Object fieldValue = field.get(obj);
                         if (fieldValue == null) {
@@ -96,7 +95,7 @@ public class SizeOfObject {
      * @param obj
      * @return
      */
-    static boolean skipObject(Set<Object> visited, Object obj) {
+    private static boolean skipObject(Set<Object> visited, Object obj) {
         if (obj instanceof String && obj == ((String) obj).intern()) {
             return true;
         }
