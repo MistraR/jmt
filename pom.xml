@@ -120,6 +120,12 @@
                 <artifactId>fastjson</artifactId>
                 <version>1.2.70</version>
             </dependency>
+            <!--jol-core分析出来一个对象在内存中占用的内存大小-->
+            <dependency>
+                <groupId>org.openjdk.jol</groupId>
+                <artifactId>jol-core</artifactId>
+                <version>0.9</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
