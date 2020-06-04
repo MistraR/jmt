@@ -1,17 +1,11 @@
 package com.mistra.jmt.test;
 
 
-import cn.hutool.core.thread.NamedThreadFactory;
 import com.mistra.jmt.model.ThreadPoolMemoryDump;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.PostConstruct;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Mistra
@@ -30,7 +24,7 @@ public class JMTTestController {
     private JobQueueTestLauncher jobQueueTestLauncher;
 
     @GetMapping("/getThreadPoolExecutorInfo")
-    public ThreadPoolMemoryDump getThreadPoolExecutorInfo(String name){
-
+    public ThreadPoolMemoryDump getThreadPoolExecutorInfo(String name) {
+        return null;
     }
 }
