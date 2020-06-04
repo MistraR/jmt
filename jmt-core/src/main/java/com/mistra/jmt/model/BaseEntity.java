@@ -1,8 +1,11 @@
 package com.mistra.jmt.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author Mistra
@@ -17,7 +20,11 @@ import javax.persistence.Id;
 public class BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
-
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date createDate;
 }
