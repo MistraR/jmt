@@ -17,11 +17,11 @@ import java.util.Date;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 @Data
-public class BaseEntity {
+public class JMTBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Integer id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
