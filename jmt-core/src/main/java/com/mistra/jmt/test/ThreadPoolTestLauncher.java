@@ -2,6 +2,7 @@ package com.mistra.jmt.test;
 
 import cn.hutool.core.thread.NamedThreadFactory;
 import com.mistra.jmt.core.ThreadPool;
+import com.mistra.jmt.core.ThreadPoolWarden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,8 @@ public class ThreadPoolTestLauncher {
         for (int i = 0; i < new Random(50).nextInt() + 50; i++) {
             threadPoolExecutorB.submit(new TestTaskA());
         }
+        ThreadPoolWarden.addExecutorService("threadPoolExecutorA", threadPoolExecutorA);
+        ThreadPoolWarden.addExecutorService("threadPoolExecutorB", threadPoolExecutorB);
     }
 
     /**
@@ -54,7 +57,7 @@ public class ThreadPoolTestLauncher {
         @Override
         public void run() {
             try {
-                Thread.sleep(30000);
+                Thread.sleep(3000);
                 log.info("线程名称： {}", Thread.currentThread().getName());
             } catch (Exception e) {
                 e.printStackTrace();
