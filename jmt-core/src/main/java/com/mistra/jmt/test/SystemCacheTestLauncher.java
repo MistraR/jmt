@@ -1,9 +1,11 @@
 package com.mistra.jmt.test;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -11,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author Mistra
  * @ Version: 1.0
  * @ Time: 2020/6/4 23:20
- * @ Description: 用来测试的，模拟实际项目中的使用
+ * @ Description: 用来测试的，模拟实际项目中缓存的使用
  * @ Copyright (c) Mistra,All Rights Reserved.
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
@@ -25,8 +27,8 @@ public class SystemCacheTestLauncher {
 
     @PostConstruct
     private void init() {
-        addTestModelConcurrentHashMap(1000);
-        addTestModelCopyOnWriteArrayList(1000);
+        addTestModelConcurrentHashMap(new Random(50).nextInt() + 50);
+        addTestModelCopyOnWriteArrayList(new Random(50).nextInt() + 50);
     }
 
     /**
@@ -34,15 +36,24 @@ public class SystemCacheTestLauncher {
      */
     @Scheduled(fixedDelay = 10000)
     private void execute() {
-        addTestModelConcurrentHashMap(100);
-        addTestModelCopyOnWriteArrayList(100);
+        init();
     }
 
     private void addTestModelConcurrentHashMap(int number) {
-
+        String name = RandomStringUtils.randomAlphanumeric(20);
+        testModelConcurrentHashMap.put(name, TestModel.builder()
+                .name(name)
+                .age(new Random(99).nextInt())
+                .build());
     }
 
     private void addTestModelCopyOnWriteArrayList(int number) {
-
+        for (int i = 0; i < number; i++) {
+            testModelCopyOnWriteArrayList.add(
+                    TestModel.builder()
+                            .name(RandomStringUtils.randomAlphanumeric(20))
+                            .age(new Random(99).nextInt())
+                            .build());
+        }
     }
 }
