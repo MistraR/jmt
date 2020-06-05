@@ -54,9 +54,9 @@ public class TourMemory {
                 threadPoolMemoryDumpRepository.saveAll(threadPoolMemoryDumpList);
             }
         } catch (IllegalAccessException illegalAccessException) {
-
+            log.error("");
         } catch (Exception exception) {
-
+            log.error("");
         }
     }
 
@@ -69,6 +69,7 @@ public class TourMemory {
     private ThreadPoolMemoryDump tourThreadPool(ThreadPoolExecutor threadPoolExecutor) throws IllegalAccessException {
         return ThreadPoolMemoryDump.builder()
                 .corePoolSize(threadPoolExecutor.getCorePoolSize())
+                .maxPoolSize(threadPoolExecutor.getMaximumPoolSize())
                 .queueSize(threadPoolExecutor.getQueue().size())
                 .queueMemorySize(SizeOfObjectUtil.fullSizeOf(threadPoolExecutor.getQueue()))
                 .build();

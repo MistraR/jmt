@@ -22,6 +22,8 @@ public class ThreadPoolMemoryDump extends JMTBaseEntity implements Serializable 
 
     private int corePoolSize;
 
+    private int maxPoolSize;
+
     private String status;
 
     private int queueSize;
