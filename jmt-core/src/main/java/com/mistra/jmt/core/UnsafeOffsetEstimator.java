@@ -2,7 +2,6 @@ package com.mistra.jmt.core;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import sun.misc.Unsafe;
 
 /**
  * @author Mistra
@@ -20,9 +19,12 @@ public class UnsafeOffsetEstimator {
     /**
      * Unsafe
      */
-    private static final Unsafe unsafe = Unsafe.getUnsafe();
 
-    public static long get(){
+    public static void main(String[] args) {
+
+    }
+
+    public static long get() {
         return 1;
     }
 

@@ -23,4 +23,8 @@ public class TestModel {
         this.name = name;
         this.age = age;
     }
+
+    public TestModel(Integer age) {
+        this.age = age;
+    }
 }
