@@ -41,8 +41,5 @@ spring:
       # 自动创建、更新、验证数据库表结构
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties:
-      hibernate:
-        dialect: com.advance.mistra.dao.jpa.MySQLTableType
 
 
