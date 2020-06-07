@@ -17,6 +17,7 @@ import java.util.Date;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 @Data
+@MappedSuperclass
 public class JMTBaseEntity {
 
     @Id

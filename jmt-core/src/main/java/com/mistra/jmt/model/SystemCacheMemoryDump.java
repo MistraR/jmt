@@ -2,7 +2,6 @@ package com.mistra.jmt.model;
 
 import lombok.Data;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -15,6 +14,7 @@ import java.io.Serializable;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 @Data
-@Table(name = "system_cache_memory_dump")
+//@Entity
+//@Table(name = "system_cache_memory_dump")
 public class SystemCacheMemoryDump extends JMTBaseEntity implements Serializable {
 }

@@ -3,6 +3,8 @@ package com.mistra.jmt.model;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -17,6 +19,7 @@ import java.io.Serializable;
  */
 @Data
 @Builder
+@Entity
 @Table(name = "thread_pool_memory_dump")
 public class ThreadPoolMemoryDump extends JMTBaseEntity implements Serializable {
 
