@@ -4,7 +4,6 @@ import cn.hutool.core.thread.NamedThreadFactory;
 import com.mistra.jmt.core.ThreadPool;
 import com.mistra.jmt.core.ThreadPoolWarden;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -48,7 +47,7 @@ public class ThreadPoolTestLauncher {
     /**
      * 不断往线程池添加任务
      */
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     private void execute() {
         init();
     }
