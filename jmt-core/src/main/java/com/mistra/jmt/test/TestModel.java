@@ -24,7 +24,4 @@ public class TestModel {
         this.age = age;
     }
 
-    public TestModel(Integer age) {
-        this.age = age;
-    }
 }
