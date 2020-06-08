@@ -2,7 +2,6 @@ package com.mistra.jmt.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +36,7 @@ public class JobQueueTestLauncher implements Runnable {
     /**
      * 不断往队列中生产元素
      */
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     private void execute() {
         init();
     }
