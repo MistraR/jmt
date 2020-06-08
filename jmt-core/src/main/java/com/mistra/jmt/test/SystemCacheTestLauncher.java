@@ -1,7 +1,6 @@
 package com.mistra.jmt.test;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -34,7 +33,7 @@ public class SystemCacheTestLauncher {
     /**
      * 不断往缓存中添加元素
      */
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     private void execute() {
         init();
     }
