@@ -19,4 +19,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @Configuration
 public class JMTAutoConfiguration {
+
+    /**
+     * 估计计算的样本大小
+     */
+    private int capacity;
 }
