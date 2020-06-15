@@ -1,11 +1,11 @@
 package com.mistra.jmt.model;
 
+import com.mistra.jmt.core.ThreadPoolStatusEnum;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -17,20 +17,36 @@ import java.io.Serializable;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @Entity
 @Table(name = "thread_pool_memory_dump")
 public class ThreadPoolMemoryDump extends JMTBaseEntity implements Serializable {
 
+    @Column(name = "core_pool_size")
     private int corePoolSize;
 
+    @Column(name = "max_pool_size")
     private int maxPoolSize;
 
-    private String status;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status")
+    private ThreadPoolStatusEnum status;
 
+    /**
+     * 队列任务数
+     */
+    @Column(name = "queue_size")
     private int queueSize;
 
-    private long queueMemorySize;
+    /**
+     * 队列占用内存大小
+     */
+    @Column(name = "queue_memory_size")
+    private String queueMemorySize;
+
+    @Column(name = "thread_pool_name")
+    private String threadPoolName;
 
 }
