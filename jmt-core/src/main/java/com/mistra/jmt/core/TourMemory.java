@@ -45,7 +45,7 @@ public class TourMemory {
                     threadPoolMemoryDumpList.add(tourThreadPool(threadPoolExecutor));
                 } else {
                     threadPoolMemoryDumpList.add(ThreadPoolMemoryDump.builder()
-                            .status("Stopped")
+                            .status(ThreadPoolStatusEnum.getThreadPoolStatusEnum(threadPoolExecutor))
                             .build());
                     log.info("The thread pool is stopped!");
                 }
@@ -88,9 +88,9 @@ public class TourMemory {
             if (!threadPoolExecutor.isTerminated()) {
                 return tourThreadPool(threadPoolExecutor);
             } else {
-                return ThreadPoolMemoryDump.builder().status("Stopped").build();
+                return ThreadPoolMemoryDump.builder().status(ThreadPoolStatusEnum.getThreadPoolStatusEnum(threadPoolExecutor)).build();
             }
         }
-        return ThreadPoolMemoryDump.builder().status("Not existed").build();
+        return ThreadPoolMemoryDump.builder().status(ThreadPoolStatusEnum.NOT_EXIST).build();
     }
 }
