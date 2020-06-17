@@ -1,7 +1,6 @@
 package com.mistra.jmt.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,7 +15,6 @@ import java.util.Date;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
-@Data
 @MappedSuperclass
 public class JMTBaseEntity {
 
@@ -30,4 +28,20 @@ public class JMTBaseEntity {
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_date")
     private Date createDate;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 }
