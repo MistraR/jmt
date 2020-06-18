@@ -1,5 +1,6 @@
 package com.mistra.jmt.core;
 
+import com.mistra.jmt.core.scan.JMTScannerRegistrar;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -16,6 +17,9 @@ import java.lang.annotation.*;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = ElementType.TYPE)
 @Documented
-@Import({JMTAutoConfiguration.class})
+@Import({JMTAutoConfiguration.class, JMTScannerRegistrar.class})
 public @interface EnableJMT {
+
+
+    String[] basePackages() default {};
 }
