@@ -7,6 +7,9 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,6 +22,28 @@ import java.util.Set;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 public class JMTAnnotationScanner extends ClassPathBeanDefinitionScanner {
+
+    public static List<Field> getFieldsOfAnnotation(Object cls, Class<? extends Annotation> anoClass) {
+        return getFieldsOfAnnotation(cls.getClass(), anoClass);
+    }
+
+    public static List<Field> getFieldsOfAnnotation(Class<?> cls, Class<? extends Annotation> anoClass) {
+        List<Field> fields = new ArrayList<>();
+        for (Class<?> clazz = cls; clazz != Object.class; clazz = clazz.getSuperclass()) {
+            try {
+                Field[] fields1 = clazz.getDeclaredFields();
+                for (Field f : fields1) {
+                    Annotation annotation = f.getAnnotation(anoClass);
+                    if (annotation != null) {
+                        f.setAccessible(true);
+                        fields.add(f);
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+        }
+    }
 
     /**
      * 实体类对应的AnnotationClazz
