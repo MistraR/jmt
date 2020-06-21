@@ -1,16 +1,18 @@
 package com.mistra.jmt.core.scan;
 
 import com.mistra.jmt.core.EnableJMT;
-import org.springframework.beans.BeanUtils;
+import com.mistra.jmt.core.JMTBean;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Mistra
@@ -23,19 +25,23 @@ import java.util.List;
  */
 public class JMTScannerRegistrar implements ImportBeanDefinitionRegistrar {
 
+    private static final String basePackages = "";
+
     @Override
+    @PostConstruct
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableJMT.class.getName()));
-        JMTAnnotationScanner scanner = new JMTAnnotationScanner(registry);
-        List<String> basePackages = new ArrayList<String>();
-        for (String pkg : annotationAttributes.getStringArray("basePackages")) {
-            if (StringUtils.hasText(pkg)) {
-                basePackages.add(pkg);
-            }
+        if (annotationAttributes != null) {
+            // 扫描@JMTBean
+            JMTAnnotationScanner scanner = JMTAnnotationScanner.getScanner(registry, JMTBean.class);
+            List<String> basePackages = new ArrayList<String>();
+            basePackages.addAll(
+                    Arrays.stream(annotationAttributes.getStringArray("basePackages"))
+                            .filter(StringUtils::hasText)
+                            .collect(Collectors.toList()));
+            scanner.registerDefaultFilters();
+            scanner.doScan(StringUtils.toStringArray(basePackages));
         }
-
-        scanner.registerFilters();
-        scanner.doScan(StringUtils.toStringArray(basePackages));
     }
 
 }

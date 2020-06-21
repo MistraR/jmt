@@ -1,7 +1,8 @@
 package com.mistra.jmt.test;
 
 import cn.hutool.core.thread.NamedThreadFactory;
-import com.mistra.jmt.core.ThreadPool;
+import com.mistra.jmt.core.JMTBean;
+import com.mistra.jmt.core.JMTThreadPool;
 import com.mistra.jmt.core.ThreadPoolWarden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,12 +24,14 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
+@JMTBean
 public class ThreadPoolTestLauncher {
 
-    @ThreadPool(value = "threadPoolExecutorA")
+    @JMTThreadPool(threadPoolName = "threadPoolExecutorA")
     public static final ThreadPoolExecutor threadPoolExecutorA = new ThreadPoolExecutor(5, 10, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(10000), new NamedThreadFactory("测试线程池A-", false), new JMTRejectedExecutionHandler());
 
+    @JMTThreadPool(threadPoolName = "threadPoolExecutorB")
     public static final ThreadPoolExecutor threadPoolExecutorB = new ThreadPoolExecutor(10, 20, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(10000), new NamedThreadFactory("测试线程池B-", false), new JMTRejectedExecutionHandler());
 

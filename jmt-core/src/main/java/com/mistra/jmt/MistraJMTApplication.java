@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
-@EnableJMT
+@EnableJMT(basePackages = "com.mistra.jmt.test")
 @SpringBootApplication
 public class MistraJMTApplication {
 

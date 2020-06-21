@@ -49,7 +49,7 @@ public class ThreadPoolMemoryDump extends JMTBaseEntity implements Serializable 
      * 队列占用内存大小
      */
     @Column(name = "queue_memory_size")
-    private String queueMemorySize;
+    private long queueMemorySize;
 
     /**
      * 线程池名称
@@ -89,11 +89,11 @@ public class ThreadPoolMemoryDump extends JMTBaseEntity implements Serializable 
         this.queueSize = queueSize;
     }
 
-    public String getQueueMemorySize() {
+    public long getQueueMemorySize() {
         return queueMemorySize;
     }
 
-    public void setQueueMemorySize(String queueMemorySize) {
+    public void setQueueMemorySize(long queueMemorySize) {
         this.queueMemorySize = queueMemorySize;
     }
 

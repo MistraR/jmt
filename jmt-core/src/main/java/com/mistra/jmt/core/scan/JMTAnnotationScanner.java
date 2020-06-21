@@ -1,8 +1,14 @@
 package com.mistra.jmt.core.scan;
 
+import com.mistra.jmt.core.JMTThreadPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 
@@ -22,6 +28,14 @@ import java.util.Set;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 public class JMTAnnotationScanner extends ClassPathBeanDefinitionScanner {
+
+    private static final Logger log = LoggerFactory.getLogger(JMTAnnotationScanner.class);
+
+    @Autowired
+    private ConfigurableListableBeanFactory beanFactory;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     public static List<Field> getFieldsOfAnnotation(Object cls, Class<? extends Annotation> anoClass) {
         return getFieldsOfAnnotation(cls.getClass(), anoClass);
@@ -43,6 +57,7 @@ public class JMTAnnotationScanner extends ClassPathBeanDefinitionScanner {
 
             }
         }
+        return fields;
     }
 
     /**
@@ -73,17 +88,25 @@ public class JMTAnnotationScanner extends ClassPathBeanDefinitionScanner {
         super(registry);
     }
 
-    // 构造函数需调用函数，使用静态变量annotationClazz传值
+    /**
+     * 添加需扫描的Annotation Class
+     */
     @Override
     public void registerDefaultFilters() {
-        // 添加需扫描的Annotation Class
         this.addIncludeFilter(new AnnotationTypeFilter(staticTempAnnotationClazz));
     }
 
-    // 以下为初始化后调用的方法
     @Override
     public Set<BeanDefinitionHolder> doScan(String... basePackages) {
-        return super.doScan(basePackages);
+        Set<BeanDefinitionHolder> beanDefinitionHolders = super.doScan(basePackages);
+        beanDefinitionHolders.forEach(beanDefinitionHolder -> {
+            Object o = applicationContext.getBean(beanDefinitionHolder.getBeanName());
+            Class<?> clazz = o.getClass();
+            JMTThreadPool threadPool = clazz.getAnnotation(JMTThreadPool.class);
+            String threadPoolName = threadPool.threadPoolName();
+            log.info("JMT Thread pool {} is monitored!", threadPoolName);
+        });
+        return beanDefinitionHolders;
     }
 
     @Override
