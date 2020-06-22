@@ -1,6 +1,6 @@
 package com.mistra.jmt;
 
-import com.mistra.jmt.core.EnableJMT;
+import com.mistra.jmt.core.anotation.EnableJMT;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

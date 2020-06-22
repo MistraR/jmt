@@ -1,5 +1,6 @@
-package com.mistra.jmt.core;
+package com.mistra.jmt.core.anotation;
 
+import com.mistra.jmt.core.JMTAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

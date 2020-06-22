@@ -1,5 +1,6 @@
 package com.mistra.jmt.core;
 
+import com.mistra.jmt.core.anotation.JMTBean;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;

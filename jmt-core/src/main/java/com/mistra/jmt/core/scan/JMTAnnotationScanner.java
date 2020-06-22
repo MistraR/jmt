@@ -1,6 +1,6 @@
 package com.mistra.jmt.core.scan;
 
-import com.mistra.jmt.core.JMTThreadPool;
+import com.mistra.jmt.core.anotation.JMTThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;

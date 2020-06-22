@@ -1,9 +1,8 @@
 package com.mistra.jmt.test;
 
 import cn.hutool.core.thread.NamedThreadFactory;
-import com.mistra.jmt.core.JMTBean;
-import com.mistra.jmt.core.JMTThreadPool;
-import com.mistra.jmt.core.ThreadPoolWarden;
+import com.mistra.jmt.core.anotation.JMTBean;
+import com.mistra.jmt.core.anotation.JMTThreadPool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -43,8 +42,8 @@ public class ThreadPoolTestLauncher {
         for (int i = 0; i < new Random(50).nextInt() + 50; i++) {
             threadPoolExecutorB.submit(new TestTaskA());
         }
-        ThreadPoolWarden.addExecutorService("threadPoolExecutorA", threadPoolExecutorA);
-        ThreadPoolWarden.addExecutorService("threadPoolExecutorB", threadPoolExecutorB);
+//        ThreadPoolWarden.addExecutorService("threadPoolExecutorA", threadPoolExecutorA);
+//        ThreadPoolWarden.addExecutorService("threadPoolExecutorB", threadPoolExecutorB);
     }
 
     /**

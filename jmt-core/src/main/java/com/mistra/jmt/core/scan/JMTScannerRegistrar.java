@@ -1,7 +1,7 @@
 package com.mistra.jmt.core.scan;
 
-import com.mistra.jmt.core.EnableJMT;
-import com.mistra.jmt.core.JMTBean;
+import com.mistra.jmt.core.anotation.EnableJMT;
+import com.mistra.jmt.core.anotation.JMTBean;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;

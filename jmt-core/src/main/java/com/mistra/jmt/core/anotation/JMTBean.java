@@ -1,4 +1,7 @@
-package com.mistra.jmt.core;
+package com.mistra.jmt.core.anotation;
+
+import com.mistra.jmt.core.JMTAutoConfiguration;
+import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
@@ -12,8 +15,7 @@ import java.lang.annotation.*;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 @Retention(value = RetentionPolicy.RUNTIME)
-@Target(value = ElementType.FIELD)
+@Target(value = ElementType.TYPE)
 @Documented
-public @interface JMTThreadPool {
-    String threadPoolName() ;
+public @interface JMTBean {
 }
