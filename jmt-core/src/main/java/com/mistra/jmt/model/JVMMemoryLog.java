@@ -1,7 +1,9 @@
 package com.mistra.jmt.model;
 
-import lombok.Builder;
-import lombok.Data;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author Mistra
@@ -12,12 +14,32 @@ import lombok.Data;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
-@Data
-@Builder
-public class JVMMemoryLog {
+@Entity
+@Table(name = "jvm_memory_log")
+public class JVMMemoryLog extends JMTBaseEntity implements Serializable {
 
+    /**
+     * 剩余内存
+     */
+    @Column(name = "free_memory")
     private long  freeMemory;
+
+    /**
+     * 使用内存
+     */
+    @Column(name = "used__memory")
     private long  usedMemory;
+
+    /**
+     * 总内存大小
+     */
+    @Column(name = "total__memory")
     private long  totalMemory;
+
+    /**
+     * 使用量
+     */
+    @Column(name = "used_ratio")
+    private long  usedRatio;
 
 }

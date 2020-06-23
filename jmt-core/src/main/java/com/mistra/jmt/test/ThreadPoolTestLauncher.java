@@ -42,8 +42,6 @@ public class ThreadPoolTestLauncher {
         for (int i = 0; i < new Random(50).nextInt() + 50; i++) {
             threadPoolExecutorB.submit(new TestTaskA());
         }
-//        ThreadPoolWarden.addExecutorService("threadPoolExecutorA", threadPoolExecutorA);
-//        ThreadPoolWarden.addExecutorService("threadPoolExecutorB", threadPoolExecutorB);
     }
 
     /**
