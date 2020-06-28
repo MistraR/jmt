@@ -1,10 +1,9 @@
 package com.mistra.jmt.service.impl;
 
 import com.mistra.jmt.service.JMTService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 
 /**
  * @author Mistra
@@ -15,13 +14,28 @@ import javax.annotation.PostConstruct;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
-@Slf4j
 @Service
 public class JMTServiceImpl implements JMTService {
 
+    private static final Logger log = LoggerFactory.getLogger(JMTServiceImpl.class);
 
-    @PostConstruct
-    private void init(){
+    @Override
+    public void addThreadTask(int number) {
+
+    }
+
+    @Override
+    public void addCollectionElement(int number) {
+
+    }
+
+    @Override
+    public void addObject(int number) {
+
+    }
+
+    @Override
+    public void addMapElement(int number) {
 
     }
 }

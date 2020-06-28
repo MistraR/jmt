@@ -10,4 +10,12 @@ package com.mistra.jmt.service;
  * @ CSDN: https://blog.csdn.net/axela30w
  */
 public interface JMTService {
+
+    void addThreadTask(int number);
+
+    void addCollectionElement(int number);
+
+    void addObject(int number);
+
+    void addMapElement(int number);
 }
