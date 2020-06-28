@@ -27,6 +27,7 @@ import java.util.Set;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
+@Deprecated
 public class JMTAnnotationScanner extends ClassPathBeanDefinitionScanner {
 
     private static final Logger log = LoggerFactory.getLogger(JMTAnnotationScanner.class);

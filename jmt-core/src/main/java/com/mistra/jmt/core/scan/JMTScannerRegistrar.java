@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
+@Deprecated
 public class JMTScannerRegistrar implements ImportBeanDefinitionRegistrar {
 
     private static final String basePackages = "";
