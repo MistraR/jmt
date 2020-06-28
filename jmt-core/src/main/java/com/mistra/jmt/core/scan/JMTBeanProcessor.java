@@ -1,9 +1,7 @@
 package com.mistra.jmt.core.scan;
 
-import com.mistra.jmt.core.anotation.JMTBean;
-import com.mistra.jmt.core.anotation.JMTQueue;
-import com.mistra.jmt.core.anotation.JMTThreadPool;
-import com.mistra.jmt.core.ThreadPoolWarden;
+import com.mistra.jmt.core.JMTWarden;
+import com.mistra.jmt.core.anotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -11,6 +9,8 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -37,22 +37,50 @@ public class JMTBeanProcessor implements BeanPostProcessor {
                 for (Field field : declaredFields) {
                     JMTThreadPool threadPool = field.getAnnotation(JMTThreadPool.class);
                     if (threadPool != null) {
-                        if (ThreadPoolWarden.getThreadPoolKeeper().containsKey(threadPool.threadPoolName())) {
+                        if (JMTWarden.getThreadPoolKeeper().containsKey(threadPool.threadPoolName())) {
                             throw new IllegalArgumentException("Scanner JMT bean Failure! ThreadPoolName duplicated!");
                         }
-                        ThreadPoolWarden.getThreadPoolKeeper().put(threadPool.threadPoolName(), (ThreadPoolExecutor) field.get(targetCls));
+                        JMTWarden.getThreadPoolKeeper().put(threadPool.threadPoolName(), (ThreadPoolExecutor) field.get(targetCls));
                         continue;
                     }
-                    JMTQueue queue = field.getAnnotation(JMTQueue.class);
-                    if (queue != null) {
-                        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) field.get(targetCls);
+
+                    JMTCollection collection = field.getAnnotation(JMTCollection.class);
+                    if (collection != null) {
+                        if (JMTWarden.getCollectionKeeper().containsKey(collection.collectionName())) {
+                            throw new IllegalArgumentException("Scanner JMT bean Failure! collectionName duplicated!");
+                        }
+                        JMTWarden.getCollectionKeeper().put(collection.collectionName(), (Collection<Object>) field.get(targetCls));
+                        continue;
+                    }
+
+                    JMTMap map = field.getAnnotation(JMTMap.class);
+                    if (map != null) {
+                        if (JMTWarden.getMapKeeper().containsKey(map.mapName())) {
+                            throw new IllegalArgumentException("Scanner JMT bean Failure! mapName duplicated!");
+                        }
+                        JMTWarden.getMapKeeper().put(map.mapName(), (Map<Object, Object>) field.get(targetCls));
+                        continue;
+                    }
+
+                    JMTObject object = field.getAnnotation(JMTObject.class);
+                    if (object != null) {
+                        if (JMTWarden.getObjectKeeper().containsKey(object.objectName())) {
+                            throw new IllegalArgumentException("Scanner JMT bean Failure! objectName duplicated!");
+                        }
+                        JMTWarden.getObjectKeeper().put(object.objectName(), field.get(targetCls));
                     }
                 }
-            } catch (IllegalAccessException e) {
+            } catch (IllegalAccessException illegalAccessException) {
                 log.error("Scanner JMT bean Failure!");
+                illegalAccessException.printStackTrace();
+            } catch (ClassCastException classCastException) {
+                classCastException.printStackTrace();
+                log.error("Annotation class cannot be cast to object class!");
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return bean;
     }
+
 }

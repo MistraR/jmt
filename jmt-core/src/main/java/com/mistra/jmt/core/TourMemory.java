@@ -39,8 +39,8 @@ public class TourMemory {
         try {
             log.info("");
             List<ThreadPoolMemoryDump> threadPoolMemoryDumpList = new ArrayList<>();
-            for (String key : ThreadPoolWarden.getThreadPoolKeeper().keySet()) {
-                ThreadPoolExecutor threadPoolExecutor = ThreadPoolWarden.getThreadPoolKeeper().get(key);
+            for (String key : JMTWarden.getThreadPoolKeeper().keySet()) {
+                ThreadPoolExecutor threadPoolExecutor = JMTWarden.getThreadPoolKeeper().get(key);
                 if (!threadPoolExecutor.isTerminated()) {
                     threadPoolMemoryDumpList.add(tourThreadPool(threadPoolExecutor));
                 } else {
@@ -83,8 +83,8 @@ public class TourMemory {
      * @throws IllegalAccessException
      */
     private ThreadPoolMemoryDump getThreadPoolSnapshot(String threadPoolName) throws IllegalAccessException {
-        if (ThreadPoolWarden.getThreadPoolKeeper().containsKey(threadPoolName)) {
-            ThreadPoolExecutor threadPoolExecutor = ThreadPoolWarden.getThreadPoolKeeper().get(threadPoolName);
+        if (JMTWarden.getThreadPoolKeeper().containsKey(threadPoolName)) {
+            ThreadPoolExecutor threadPoolExecutor = JMTWarden.getThreadPoolKeeper().get(threadPoolName);
             if (!threadPoolExecutor.isTerminated()) {
                 return tourThreadPool(threadPoolExecutor);
             } else {

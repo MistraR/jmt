@@ -14,6 +14,6 @@ import java.lang.annotation.*;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = ElementType.FIELD)
 @Documented
-public @interface JMTQueue {
-    String queueName();
+public @interface JMTCollection {
+    String collectionName();
 }

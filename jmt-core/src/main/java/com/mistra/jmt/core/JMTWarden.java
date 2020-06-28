@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Slf4j
 @Data
 @Component
-public class ThreadPoolWarden {
+public class JMTWarden {
 
     /**
      * 线程池监控，String-线程池名称 ThreadPoolExecutor-线程池引用
@@ -32,12 +32,12 @@ public class ThreadPoolWarden {
     /**
      * 任务队列监控，String-队列名称 ？- 集合
      */
-    private static final ConcurrentHashMap<String, ? extends Collection<Object>> collectionKeeper = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Collection<Object>> collectionKeeper = new ConcurrentHashMap<>();
 
     /**
      * 任务队列监控，String-队列名称 ？- 映射
      */
-    private static final ConcurrentHashMap<String, ? extends Map<Object, Object>> mapKeeper = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Map<Object, Object>> mapKeeper = new ConcurrentHashMap<>();
 
     /**
      * 全局对象监控，String-对象名称,Object-对象
@@ -77,4 +77,18 @@ public class ThreadPoolWarden {
     public static ConcurrentHashMap<String, ThreadPoolExecutor> getThreadPoolKeeper() {
         return threadPoolKeeper;
     }
+
+    public static ConcurrentHashMap<String, Collection<Object>> getCollectionKeeper() {
+        return collectionKeeper;
+    }
+
+    public static ConcurrentHashMap<String, Map<Object, Object>> getMapKeeper() {
+        return mapKeeper;
+    }
+
+    public static ConcurrentHashMap<String, Object> getObjectKeeper() {
+        return objectKeeper;
+    }
+
+
 }
