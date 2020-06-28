@@ -1,6 +1,7 @@
 package com.mistra.jmt.core;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -18,10 +19,19 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EntityScan("com.mistra.jmt.model")
 @EnableScheduling
 @Configuration
+@ConfigurationProperties(prefix = "jmt")
 public class JMTAutoConfiguration {
 
     /**
      * 估计计算的样本大小
      */
-    private int capacity;
+    private int capacity = 100;
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 }
