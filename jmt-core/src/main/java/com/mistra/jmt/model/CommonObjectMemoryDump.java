@@ -22,7 +22,7 @@ public class CommonObjectMemoryDump extends JMTBaseEntity implements Serializabl
      * 若对象为Collect或者Map，则设置元素个数
      */
     @Column(name = "element_number")
-    private int element_number;
+    private int elementNumber;
 
     /**
      * 对象占用内存大小
@@ -41,4 +41,36 @@ public class CommonObjectMemoryDump extends JMTBaseEntity implements Serializabl
      */
     @Column(name = "object_class")
     private String objectClass;
+
+    public int getElementNumber() {
+        return elementNumber;
+    }
+
+    public void setElementNumber(int elementNumber) {
+        this.elementNumber = elementNumber;
+    }
+
+    public long getMemorySize() {
+        return memorySize;
+    }
+
+    public void setMemorySize(long memorySize) {
+        this.memorySize = memorySize;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
+
+    public String getObjectClass() {
+        return objectClass;
+    }
+
+    public void setObjectClass(String objectClass) {
+        this.objectClass = objectClass;
+    }
 }

@@ -1,7 +1,7 @@
 package com.mistra.jmt.core;
 
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -18,10 +18,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
-@Slf4j
-@Data
 @Component
 public class JMTWarden {
+
+    private static final Logger log = LoggerFactory.getLogger(JMTWarden.class);
 
     /**
      * 线程池监控，String-线程池名称 ThreadPoolExecutor-线程池引用
@@ -66,7 +66,7 @@ public class JMTWarden {
      * @param threadPoolName 线程池名称
      * @return 线程池引用
      */
-    public static ThreadPoolExecutor getExecutorService(String threadPoolName) {
+    public static ThreadPoolExecutor getThreadPoolExecutor(String threadPoolName) {
         if (!threadPoolKeeper.containsKey(threadPoolName)) {
             log.error("The thread pool does not exist!");
             return null;

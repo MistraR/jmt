@@ -22,24 +22,55 @@ public class JVMMemoryLog extends JMTBaseEntity implements Serializable {
      * 剩余内存
      */
     @Column(name = "free_memory")
-    private long  freeMemory;
+    private long freeMemory;
 
     /**
      * 使用内存
      */
     @Column(name = "used__memory")
-    private long  usedMemory;
+    private long usedMemory;
 
     /**
      * 总内存大小
      */
     @Column(name = "total__memory")
-    private long  totalMemory;
+    private long totalMemory;
 
     /**
      * 使用量
      */
     @Column(name = "used_ratio")
-    private long  usedRatio;
+    private long usedRatio;
 
+    public long getFreeMemory() {
+        return freeMemory;
+    }
+
+    public void setFreeMemory(long freeMemory) {
+        this.freeMemory = freeMemory;
+    }
+
+    public long getUsedMemory() {
+        return usedMemory;
+    }
+
+    public void setUsedMemory(long usedMemory) {
+        this.usedMemory = usedMemory;
+    }
+
+    public long getTotalMemory() {
+        return totalMemory;
+    }
+
+    public void setTotalMemory(long totalMemory) {
+        this.totalMemory = totalMemory;
+    }
+
+    public long getUsedRatio() {
+        return usedRatio;
+    }
+
+    public void setUsedRatio(long usedRatio) {
+        this.usedRatio = usedRatio;
+    }
 }

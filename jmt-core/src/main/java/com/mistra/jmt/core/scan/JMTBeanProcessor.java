@@ -37,10 +37,7 @@ public class JMTBeanProcessor implements BeanPostProcessor {
                 for (Field field : declaredFields) {
                     JMTThreadPool threadPool = field.getAnnotation(JMTThreadPool.class);
                     if (threadPool != null) {
-                        if (JMTWarden.getThreadPoolKeeper().containsKey(threadPool.threadPoolName())) {
-                            throw new IllegalArgumentException("Scanner JMT bean Failure! ThreadPoolName duplicated!");
-                        }
-                        JMTWarden.getThreadPoolKeeper().put(threadPool.threadPoolName(), (ThreadPoolExecutor) field.get(targetCls));
+                        JMTWarden.addExecutorService(threadPool.threadPoolName(), (ThreadPoolExecutor) field.get(targetCls));
                         continue;
                     }
 

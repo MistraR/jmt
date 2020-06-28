@@ -24,7 +24,7 @@ public enum ThreadPoolStatusEnum {
     TIDYING(4, "TIDYING"),
     //线程池彻底终止，就变成TERMINATED状态
     TERMINATED(5, "彻底终止"),
-    NOT_EXIST(6, "不存在的线程池");
+    NOT_EXIST(6, "不存在的对象");
 
     private int value;
 

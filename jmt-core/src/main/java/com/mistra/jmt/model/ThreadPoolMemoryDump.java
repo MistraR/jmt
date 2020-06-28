@@ -1,7 +1,6 @@
 package com.mistra.jmt.model;
 
 import com.mistra.jmt.core.ThreadPoolStatusEnum;
-import lombok.Builder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +14,6 @@ import java.io.Serializable;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
-@Builder
 @Entity
 @Table(name = "thread_pool_memory_dump")
 public class ThreadPoolMemoryDump extends JMTBaseEntity implements Serializable {
@@ -103,5 +101,12 @@ public class ThreadPoolMemoryDump extends JMTBaseEntity implements Serializable 
 
     public void setThreadPoolName(String threadPoolName) {
         this.threadPoolName = threadPoolName;
+    }
+
+    public ThreadPoolMemoryDump() {
+    }
+
+    public ThreadPoolMemoryDump(ThreadPoolStatusEnum status) {
+        this.status = status;
     }
 }

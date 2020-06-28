@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -35,9 +33,6 @@ public class ThreadPoolTestLauncher {
     @JMTThreadPool(threadPoolName = "threadPoolExecutorB")
     public static final ThreadPoolExecutor threadPoolExecutorB = new ThreadPoolExecutor(10, 20, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(10000), new NamedThreadFactory("测试线程池B-", false), new JMTRejectedExecutionHandler());
-
-    @JMTThreadPool(threadPoolName = "threadPoolExecutorC")
-    public static final List<String> d=new ArrayList<>();
 
     @PostConstruct
     private void init() {
