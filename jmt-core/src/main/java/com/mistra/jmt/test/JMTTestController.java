@@ -81,6 +81,11 @@ public class JMTTestController {
         System.out.println("testModelList集合占用内存大小（估算）：" + JMTMemoryEstimate.unitsMB(Estimator(testModelList).longValue()));
         System.out.println("testModelList估算计算花费时间：" + (System.currentTimeMillis() - b));
         System.out.println("testMemory2---------------------------------------------------------------------");
+//        System.out.println("testModelList:" + com.mistra.jmt.core.RamUsageEstimator.sizeOf(testModelList));
+        System.out.println("testModelList:shallowSizeOf " + com.mistra.jmt.core.RamUsageEstimator.shallowSizeOf(testModelList));
+        System.out.println("testModelList:shallowSizeOf " + com.mistra.jmt.core.RamUsageEstimator.shallowSizeOf(testModelList.toArray()));
+        System.out.println("testModelList:shallowSizeOf " + JMTMemoryEstimate.shallowSizeOf(testModelList));
+        System.out.println("testModelList:shallowSizeOf " + JMTMemoryEstimate.shallowSizeOf(testModelList.toArray()));
         return "success";
     }
 

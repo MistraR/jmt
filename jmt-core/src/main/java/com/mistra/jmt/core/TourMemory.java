@@ -107,7 +107,7 @@ public class TourMemory {
         commonObjectMemoryDump.setObjectName(objectName);
         commonObjectMemoryDump.setObjectClass(object.getClass().toString());
         commonObjectMemoryDump.setElementNumber(elementNumber);
-        commonObjectMemoryDump.setMemorySize(JMTMemoryEstimate.shallowSizeOf(object));
+        commonObjectMemoryDump.setMemorySize(JMTMemoryEstimate.jmtSizeOfObject(object));
         return commonObjectMemoryDump;
     }
 
@@ -148,7 +148,7 @@ public class TourMemory {
             threadPoolMemoryDump.setCorePoolSize(threadPoolExecutor.getCorePoolSize());
             threadPoolMemoryDump.setMaxPoolSize(threadPoolExecutor.getMaximumPoolSize());
             threadPoolMemoryDump.setQueueSize(threadPoolExecutor.getQueue().size());
-            threadPoolMemoryDump.setQueueMemorySize(JMTMemoryEstimate.shallowSizeOf(threadPoolExecutor.getQueue()));
+            threadPoolMemoryDump.setQueueMemorySize(JMTMemoryEstimate.jmtSizeOfObject(threadPoolExecutor.getQueue()));
         }
         return threadPoolMemoryDump;
     }

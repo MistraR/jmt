@@ -348,7 +348,7 @@ public class JMTMemoryEstimate {
                 }
             }
             Double objectAvgSize = longList.stream().collect(Collectors.averagingDouble(Long::longValue));
-            BigDecimal objectDeepSize = new BigDecimal(objectAvgSize + shallowSize).multiply(new BigDecimal(collection.size()));
+            BigDecimal objectDeepSize = new BigDecimal(objectAvgSize).multiply(new BigDecimal(collection.size()));
             BigDecimal collectionShallowSize = new BigDecimal(shallowSizeOf(collection));
             return objectDeepSize.add(collectionShallowSize).longValue();
         }

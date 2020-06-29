@@ -19,8 +19,12 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) throws IllegalAccessException {
-        C();
-        B();
+//        C();
+//        B();
+
+        TestModel testModel = new TestModel("AHGFIQJTOVFLASJDFLJA:LFJLOASDJGAG)(+?~!Mistra" + 1111111, 1);
+        System.out.println("testModel:" + JMTMemoryEstimate.jmtSizeOfObject(testModel));
+        System.out.println("testModel:" + RamUsageEstimator.sizeOf(testModel));
     }
 
 
