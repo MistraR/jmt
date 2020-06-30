@@ -25,6 +25,7 @@ public class Test {
         TestModel testModel = new TestModel("AHGFIQJTOVFLASJDFLJA:LFJLOASDJGAG)(+?~!Mistra" + 1111111, 1);
         System.out.println("testModel:" + JMTMemoryEstimate.jmtSizeOfObject(testModel));
         System.out.println("testModel:" + RamUsageEstimator.sizeOf(testModel));
+        System.out.println("testModel:" + org.apache.lucene.util.RamUsageEstimator.sizeOfObject(testModel));
     }
 
 
@@ -74,11 +75,5 @@ public class Test {
         System.out.println("testModelList集合占用内存大小：" + RamUsageEstimator.humanSizeOf(testModelList));
     }
 
-    static class Animal {
-        private int age;
 
-        public Animal(int age) {
-            this.age = age;
-        }
-    }
 }

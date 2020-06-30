@@ -127,6 +127,37 @@ public class JMTTestController {
         return "success";
     }
 
+    @GetMapping("/testMemory3/{num}")
+    public String testMemory3(@PathVariable("num") int num) throws InterruptedException {
+        ConcurrentLinkedQueue<TestModel> testModelList = createQueueData(num);
+        System.out.println("testMemory2---------------------------------------------------------------------");
+//        long a = System.currentTimeMillis();
+//        System.out.println("testModelList集合占用内存大小(递归计算)：" + (RamUsageEstimator.humanReadableUnits(com.mistra.jmt.core.RamUsageEstimator.sizeOf(testModelList))));
+//        System.out.println("testModelList递归计算花费时间：" + (System.currentTimeMillis() - a));
+//        long b = System.currentTimeMillis();
+//        System.out.println("testModelList集合占用内存大小（估算）：" + RamUsageEstimator.humanReadableUnits(com.mistra.jmt.core.RamUsageEstimator.shallowSizeOf(testModelList.toArray())));
+//        System.out.println("testModelList估算计算花费时间：" + (System.currentTimeMillis() - b));
+//
+//        long a2 = System.currentTimeMillis();
+//        System.out.println("testModelList集合占用内存大小(递归计算)：" + (RamUsageEstimator.humanReadableUnits(RamUsageEstimator.sizeOfCollection(testModelList))));
+//        System.out.println("testModelList递归计算花费时间：" + (System.currentTimeMillis() - a2));
+//        long b2 = System.currentTimeMillis();
+//        System.out.println("testModelList集合占用内存大小（估算）：" + RamUsageEstimator.humanReadableUnits(RamUsageEstimator.shallowSizeOf(testModelList.toArray())));
+//        System.out.println("testModelList估算计算花费时间：" + (System.currentTimeMillis() - b2));
+
+        long a3 = System.currentTimeMillis();
+        System.out.println("testModelList集合占用内存大小(递归计算)：" + (RamUsageEstimator.humanReadableUnits(JMTMemoryEstimate.estimateCollection(testModelList))));
+        System.out.println("testModelList递归计算花费时间：" + (System.currentTimeMillis() - a3));
+        long a4 = System.currentTimeMillis();
+        System.out.println("testModelList集合占用内存大小(递归计算)：" + (RamUsageEstimator.humanReadableUnits(JMTMemoryEstimate.jmtSizeOfObject(testModelList))));
+        System.out.println("testModelList递归计算花费时间：" + (System.currentTimeMillis() - a4));
+        long b3 = System.currentTimeMillis();
+        System.out.println("testModelList集合占用内存大小（估算）：" + RamUsageEstimator.humanReadableUnits(JMTMemoryEstimate.shallowSizeOf(testModelList.toArray())));
+        System.out.println("testModelList估算计算花费时间：" + (System.currentTimeMillis() - b3));
+        System.out.println("testMemory2---------------------------------------------------------------------");
+        return "success";
+    }
+
     public static BigDecimal estimatorMap(ConcurrentHashMap<? extends Object, ? extends Object> concurrentHashMap) {
         List<Long> longList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
