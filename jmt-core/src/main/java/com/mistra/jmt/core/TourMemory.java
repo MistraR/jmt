@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author Mistra
  * @ Version: 1.0
  * @ Time: 2020/6/3 21:54
- * @ Description: 计算各个监控对象的内存占用情况
+ * @ Description: 计算各个监控对象的内存占用情况，超过JMTAutoConfiguration.capacity大小的集合类数据将会采用估计计算的方式，精确计算有点耗时
  * @ Copyright (c) Mistra,All Rights Reserved.
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Mistra
  * @ Version: 1.0
  * @ Time: 2020/6/2 23:00
- * @ Description: 任务队列内存快照
+ * @ Description: 通用对象内存占用数据实体类
  * @ Copyright (c) Mistra,All Rights Reserved.
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
