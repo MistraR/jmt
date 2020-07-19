@@ -1,10 +1,12 @@
 package com.mistra.jmt.core;
 
+import com.mistra.jmt.model.ThreadPoolMemoryDump;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -43,6 +45,16 @@ public class JMTWarden {
      * 全局对象监控，String-对象名称,Object-对象
      */
     private static final ConcurrentHashMap<String, Object> objectKeeper = new ConcurrentHashMap<>();
+
+    /**
+     * 缓存监控对象的实时内存占用大小 String - 对象名 Long - 对象占用内存大小 KB
+     */
+    public static final HashMap<String, Long> objectMemorySizeMap = new HashMap<>(32);
+
+    /**
+     * 缓存监控线程池的实时内存占用大小 String - 线程池名
+     */
+    public static final HashMap<String, ThreadPoolMemoryDump> threadPoolMemorySizeMap = new HashMap<>(16);
 
     /**
      * 添加线程池到监控缓存

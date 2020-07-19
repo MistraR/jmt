@@ -27,11 +27,24 @@ public class JMTAutoConfiguration {
      */
     private int capacity = 100;
 
+    /**
+     * 监控数据是否需要入库
+     */
+    private boolean saveDataInDB = false;
+
     public int getCapacity() {
         return capacity;
     }
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public boolean isSaveDataInDB() {
+        return saveDataInDB;
+    }
+
+    public void setSaveDataInDB(boolean saveDataInDB) {
+        this.saveDataInDB = saveDataInDB;
     }
 }

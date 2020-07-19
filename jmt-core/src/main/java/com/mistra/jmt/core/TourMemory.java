@@ -41,6 +41,9 @@ public class TourMemory {
     @Autowired
     private JVMMemoryLogRepository jvmMemoryLogRepository;
 
+    @Autowired
+    private JMTAutoConfiguration jmtAutoConfiguration;
+
     @Scheduled(fixedDelay = 300000)
     private void tour() {
         tourThreadPools();
@@ -52,14 +55,16 @@ public class TourMemory {
      * 监控JVM指标
      */
     private void tourJVM() {
-        JVMMemoryLog jvmMemoryLog = new JVMMemoryLog();
-        jvmMemoryLog.setCreateDate(new Date());
-        RuntimeInfo runtimeInfo = SystemUtil.getRuntimeInfo();
-        jvmMemoryLog.setUsedMemory(runtimeInfo.getUsableMemory());
-        jvmMemoryLog.setFreeMemory(runtimeInfo.getFreeMemory());
-        jvmMemoryLog.setTotalMemory(runtimeInfo.getMaxMemory());
-        jvmMemoryLog.setUsedRatio(runtimeInfo.getUsableMemory() / runtimeInfo.getMaxMemory());
-        jvmMemoryLogRepository.save(jvmMemoryLog);
+        if (jmtAutoConfiguration.isSaveDataInDB()) {
+            JVMMemoryLog jvmMemoryLog = new JVMMemoryLog();
+            jvmMemoryLog.setCreateDate(new Date());
+            RuntimeInfo runtimeInfo = SystemUtil.getRuntimeInfo();
+            jvmMemoryLog.setUsedMemory(runtimeInfo.getUsableMemory());
+            jvmMemoryLog.setFreeMemory(runtimeInfo.getFreeMemory());
+            jvmMemoryLog.setTotalMemory(runtimeInfo.getMaxMemory());
+            jvmMemoryLog.setUsedRatio(runtimeInfo.getUsableMemory() / runtimeInfo.getMaxMemory());
+            jvmMemoryLogRepository.save(jvmMemoryLog);
+        }
     }
 
     /**
@@ -83,9 +88,10 @@ public class TourMemory {
                 commonObjectMemoryDumpList.add(tourObject(key, object, 0));
             }
 
-            if (!commonObjectMemoryDumpList.isEmpty()) {
+            if (!commonObjectMemoryDumpList.isEmpty() && jmtAutoConfiguration.isSaveDataInDB()) {
                 objectMemoryDumpRepository.saveAll(commonObjectMemoryDumpList);
             }
+            commonObjectMemoryDumpList.clear();
             log.info("JMT calculate common Objects  memory size end!");
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -107,7 +113,9 @@ public class TourMemory {
         commonObjectMemoryDump.setObjectName(objectName);
         commonObjectMemoryDump.setObjectClass(object.getClass().toString());
         commonObjectMemoryDump.setElementNumber(elementNumber);
-        commonObjectMemoryDump.setMemorySize(JMTMemoryEstimate.jmtSizeOfObject(object));
+        long size = JMTMemoryEstimate.jmtSizeOfObject(object);
+        commonObjectMemoryDump.setMemorySize(size);
+        JMTWarden.objectMemorySizeMap.put(objectName, size);
         return commonObjectMemoryDump;
     }
 
@@ -122,9 +130,10 @@ public class TourMemory {
                 ThreadPoolExecutor threadPoolExecutor = JMTWarden.getThreadPoolKeeper().get(key);
                 threadPoolMemoryDumpList.add(tourThreadPool(key, threadPoolExecutor));
             }
-            if (!threadPoolMemoryDumpList.isEmpty()) {
+            if (!threadPoolMemoryDumpList.isEmpty() && jmtAutoConfiguration.isSaveDataInDB()) {
                 threadPoolMemoryDumpRepository.saveAll(threadPoolMemoryDumpList);
             }
+            threadPoolMemoryDumpList.clear();
             log.info("JMT calculate ThreadPools memory size end!");
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -150,11 +159,12 @@ public class TourMemory {
             threadPoolMemoryDump.setQueueSize(threadPoolExecutor.getQueue().size());
             threadPoolMemoryDump.setQueueMemorySize(JMTMemoryEstimate.jmtSizeOfObject(threadPoolExecutor.getQueue()));
         }
+        JMTWarden.threadPoolMemorySizeMap.put(threadPoolName, threadPoolMemoryDump);
         return threadPoolMemoryDump;
     }
 
     /**
-     * 获取某个线程池当前的指标信息
+     * 实时获取某个线程池当前的指标信息
      *
      * @param threadPoolName 线程池名称
      * @return ThreadPoolMemoryDump
