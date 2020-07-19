@@ -44,7 +44,7 @@ public class TourMemory {
     @Autowired
     private JMTAutoConfiguration jmtAutoConfiguration;
 
-    @Scheduled(fixedDelay = 3000)
+    @Scheduled(fixedDelay = 5 * 60 * 1000)
     private void tour() {
         tourThreadPools();
         tourObjects();
