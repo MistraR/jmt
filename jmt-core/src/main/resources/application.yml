@@ -36,13 +36,13 @@ spring:
       # 合并多个DruidDataSource的监控数据
       use-global-data-source-stat: true
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       # 自动创建、更新、验证数据库表结构
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   jmt:
     capacity: 50
-    saveDataInDB: true
+    save-data: true
 
 

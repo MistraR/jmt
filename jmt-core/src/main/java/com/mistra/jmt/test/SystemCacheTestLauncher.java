@@ -1,10 +1,14 @@
 package com.mistra.jmt.test;
 
+import com.mistra.jmt.core.anotation.JMTBean;
 import com.mistra.jmt.core.anotation.JMTCollection;
 import com.mistra.jmt.core.anotation.JMTMap;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,7 +22,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @ Github: https://github.com/MistraR
  * @ CSDN: https://blog.csdn.net/axela30w
  */
+@Slf4j
 @Component
+@JMTBean
 public class SystemCacheTestLauncher {
 
     @JMTMap(mapName = "testModelConcurrentHashMap")
@@ -27,7 +33,7 @@ public class SystemCacheTestLauncher {
     @JMTCollection(collectionName = "testModelCopyOnWriteArrayList")
     public static final CopyOnWriteArrayList<TestModel> testModelCopyOnWriteArrayList = new CopyOnWriteArrayList<>();
 
-//    @PostConstruct
+    @PostConstruct
     private void init() {
         addTestModelConcurrentHashMap(new Random().nextInt(50) + 50);
         addTestModelCopyOnWriteArrayList(new Random().nextInt(50) + 50);
@@ -36,7 +42,7 @@ public class SystemCacheTestLauncher {
     /**
      * 不断往缓存中添加元素
      */
-//    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 30000)
     private void execute() {
         init();
     }

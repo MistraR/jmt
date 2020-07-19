@@ -30,7 +30,7 @@ public class JMTAutoConfiguration {
     /**
      * 监控数据是否需要入库
      */
-    private boolean saveDataInDB = false;
+    private boolean saveData = true;
 
     public int getCapacity() {
         return capacity;
@@ -40,11 +40,11 @@ public class JMTAutoConfiguration {
         this.capacity = capacity;
     }
 
-    public boolean isSaveDataInDB() {
-        return saveDataInDB;
+    public boolean isSaveData() {
+        return saveData;
     }
 
-    public void setSaveDataInDB(boolean saveDataInDB) {
-        this.saveDataInDB = saveDataInDB;
+    public void setSaveData(boolean saveData) {
+        this.saveData = saveData;
     }
 }

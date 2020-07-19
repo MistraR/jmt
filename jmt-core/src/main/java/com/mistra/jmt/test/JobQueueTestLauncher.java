@@ -1,10 +1,13 @@
 package com.mistra.jmt.test;
 
+import com.mistra.jmt.core.anotation.JMTBean;
 import com.mistra.jmt.core.anotation.JMTCollection;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -20,6 +23,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 @Slf4j
 @Component
+@JMTBean
 public class JobQueueTestLauncher implements Runnable {
 
     @JMTCollection(collectionName = "queueString")
@@ -28,7 +32,7 @@ public class JobQueueTestLauncher implements Runnable {
     @JMTCollection(collectionName = "queueTestModel")
     public static final ConcurrentLinkedQueue<TestModel> queueTestModel = new ConcurrentLinkedQueue<>();
 
-//    @PostConstruct
+    @PostConstruct
     private void init() {
         addQueueStringElement(new Random().nextInt(50) + 50);
         addQueueTestModelElement(new Random().nextInt(50) + 50);
@@ -38,7 +42,7 @@ public class JobQueueTestLauncher implements Runnable {
     /**
      * 不断往队列中生产元素
      */
-//    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 30000)
     private void execute() {
         init();
     }

@@ -332,7 +332,7 @@ public class JMTMemoryEstimate {
             List<Long> longList = new ArrayList<>(ACCURACY_NUM);
             for (int i = 0; i < ACCURACY_NUM; i++) {
                 if (collection instanceof List<?>) {
-                    longList.add(jmtSizeOfObject(((ArrayList<?>) collection).get(i)));
+                    longList.add(jmtSizeOfObject( ((List<?>) collection).get(i)));
                 } else if (collection instanceof Queue<?>) {
                     longList.add(jmtSizeOfObject(((Queue<?>) collection).peek()));
                 } else if (collection instanceof Set<?>) {

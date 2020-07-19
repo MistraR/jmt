@@ -55,7 +55,7 @@ public class TourMemory {
      * 监控JVM指标
      */
     private void tourJVM() {
-        if (jmtAutoConfiguration.isSaveDataInDB()) {
+        if (jmtAutoConfiguration.isSaveData()) {
             JVMMemoryLog jvmMemoryLog = new JVMMemoryLog();
             jvmMemoryLog.setCreateDate(new Date());
             RuntimeInfo runtimeInfo = SystemUtil.getRuntimeInfo();
@@ -88,7 +88,7 @@ public class TourMemory {
                 commonObjectMemoryDumpList.add(tourObject(key, object));
             }
 
-            if (!commonObjectMemoryDumpList.isEmpty() && jmtAutoConfiguration.isSaveDataInDB()) {
+            if (!commonObjectMemoryDumpList.isEmpty() && jmtAutoConfiguration.isSaveData()) {
                 objectMemoryDumpRepository.saveAll(commonObjectMemoryDumpList);
             }
             commonObjectMemoryDumpList.clear();
@@ -150,7 +150,7 @@ public class TourMemory {
                 ThreadPoolExecutor threadPoolExecutor = JMTWarden.getThreadPoolKeeper().get(key);
                 threadPoolMemoryDumpList.add(tourThreadPool(key, threadPoolExecutor));
             }
-            if (!threadPoolMemoryDumpList.isEmpty() && jmtAutoConfiguration.isSaveDataInDB()) {
+            if (!threadPoolMemoryDumpList.isEmpty() && jmtAutoConfiguration.isSaveData()) {
                 threadPoolMemoryDumpRepository.saveAll(threadPoolMemoryDumpList);
             }
             threadPoolMemoryDumpList.clear();
