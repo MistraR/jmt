@@ -43,5 +43,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   jmt:
     capacity: 50
+    saveDataInDB: true
 
 

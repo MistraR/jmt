@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Mistra
@@ -42,6 +43,10 @@ public class CommonObjectMemoryDump extends JMTBaseEntity implements Serializabl
     @Column(name = "object_class")
     private String objectClass;
 
+    public CommonObjectMemoryDump() {
+
+    }
+
     public int getElementNumber() {
         return elementNumber;
     }
@@ -73,4 +78,13 @@ public class CommonObjectMemoryDump extends JMTBaseEntity implements Serializabl
     public void setObjectClass(String objectClass) {
         this.objectClass = objectClass;
     }
+
+    public CommonObjectMemoryDump(int elementNumber, long memorySize, String objectName, String objectClass) {
+        this.setCreateDate(new Date());
+        this.elementNumber = elementNumber;
+        this.memorySize = memorySize;
+        this.objectName = objectName;
+        this.objectClass = objectClass;
+    }
+
 }

@@ -1,9 +1,10 @@
 package com.mistra.jmt.test;
 
+import com.mistra.jmt.core.anotation.JMTCollection;
+import com.mistra.jmt.core.anotation.JMTMap;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,14 +21,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Component
 public class SystemCacheTestLauncher {
 
+    @JMTMap(mapName = "testModelConcurrentHashMap")
     public static final ConcurrentHashMap<String, TestModel> testModelConcurrentHashMap = new ConcurrentHashMap<>();
 
+    @JMTCollection(collectionName = "testModelCopyOnWriteArrayList")
     public static final CopyOnWriteArrayList<TestModel> testModelCopyOnWriteArrayList = new CopyOnWriteArrayList<>();
 
-    @PostConstruct
+//    @PostConstruct
     private void init() {
-        addTestModelConcurrentHashMap(new Random(50).nextInt() + 50);
-        addTestModelCopyOnWriteArrayList(new Random(50).nextInt() + 50);
+        addTestModelConcurrentHashMap(new Random().nextInt(50) + 50);
+        addTestModelCopyOnWriteArrayList(new Random().nextInt(50) + 50);
     }
 
     /**

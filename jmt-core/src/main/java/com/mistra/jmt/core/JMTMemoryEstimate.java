@@ -33,7 +33,10 @@ import java.util.stream.Collectors;
 @Component
 public class JMTMemoryEstimate {
 
-    public static final int ACCURACYNUM = 20;
+    /**
+     * 估计计算的样本大小
+     */
+    public static int ACCURACY_NUM = 100;
     public static final long ONE_KB = 1024;
     public static final long ONE_MB = ONE_KB * ONE_KB;
     public static final long ONE_GB = ONE_KB * ONE_MB;
@@ -323,24 +326,20 @@ public class JMTMemoryEstimate {
      * @return
      */
     public static long estimateCollection(Collection<?> collection) {
-        if (collection.size() < ACCURACYNUM) {
+        if (collection.size() < ACCURACY_NUM) {
             return jmtSizeOfObject(collection);
         } else {
-            long shallowSize = 0;
-            List<Long> longList = new ArrayList<>(ACCURACYNUM);
-            for (int i = 0; i < ACCURACYNUM; i++) {
+            List<Long> longList = new ArrayList<>(ACCURACY_NUM);
+            for (int i = 0; i < ACCURACY_NUM; i++) {
                 if (collection instanceof List<?>) {
                     longList.add(jmtSizeOfObject(((ArrayList<?>) collection).get(i)));
-                    shallowSize = shallowSizeOf(((ArrayList<?>) collection).get(i));
                 } else if (collection instanceof Queue<?>) {
                     longList.add(jmtSizeOfObject(((Queue<?>) collection).peek()));
-                    shallowSize = shallowSizeOf(((Queue<?>) collection).peek());
                 } else if (collection instanceof Set<?>) {
                     Iterator<?> iterator = collection.iterator();
                     int count = 0;
-                    while (count < ACCURACYNUM) {
+                    while (count < ACCURACY_NUM) {
                         longList.add(jmtSizeOfObject(iterator.next()));
-                        shallowSize = shallowSizeOf(iterator.next());
                         count++;
                     }
                 } else {
@@ -351,6 +350,37 @@ public class JMTMemoryEstimate {
             BigDecimal objectDeepSize = new BigDecimal(objectAvgSize).multiply(new BigDecimal(collection.size()));
             BigDecimal collectionShallowSize = new BigDecimal(shallowSizeOf(collection));
             return objectDeepSize.add(collectionShallowSize).longValue();
+        }
+    }
+
+    /**
+     * Estimate Map size
+     *
+     * @param map
+     * @return
+     */
+    public static long estimateMap(Map<? extends Object, ? extends Object> map) {
+        try {
+
+            if (map.size() < ACCURACY_NUM) {
+                return jmtSizeOfObject(map);
+            } else {
+                List<Long> longList = new ArrayList<>(ACCURACY_NUM);
+                int count = 0;
+                for (Map.Entry<? extends Object, ? extends Object> objectObjectEntry : map.entrySet()) {
+                    longList.add(jmtSizeOfObject(objectObjectEntry.getKey()) + jmtSizeOfObject(objectObjectEntry.getValue()));
+                    if (++count > ACCURACY_NUM) {
+                        break;
+                    }
+                }
+                Double objectAvgSize = longList.stream().collect(Collectors.averagingDouble(Long::longValue));
+                BigDecimal objectDeepSize = new BigDecimal(objectAvgSize).multiply(new BigDecimal(map.size()));
+                BigDecimal mapShallowSize = new BigDecimal(shallowSizeOf(map));
+                return objectDeepSize.add(mapShallowSize).longValue();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0l;
         }
     }
 

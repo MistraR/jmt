@@ -6,7 +6,6 @@ import com.mistra.jmt.core.anotation.JMTThreadPool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -34,12 +33,12 @@ public class ThreadPoolTestLauncher {
     public static final ThreadPoolExecutor threadPoolExecutorB = new ThreadPoolExecutor(10, 20, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(10000), new NamedThreadFactory("测试线程池B-", false), new JMTRejectedExecutionHandler());
 
-    @PostConstruct
+//    @PostConstruct
     private void init() {
-        for (int i = 0; i < new Random(50).nextInt() + 50; i++) {
+        for (int i = 0; i < new Random().nextInt(50) + 50; i++) {
             threadPoolExecutorA.submit(new TestTaskA());
         }
-        for (int i = 0; i < new Random(50).nextInt() + 50; i++) {
+        for (int i = 0; i < new Random().nextInt(50) + 50; i++) {
             threadPoolExecutorB.submit(new TestTaskA());
         }
     }
@@ -47,7 +46,7 @@ public class ThreadPoolTestLauncher {
     /**
      * 不断往线程池添加任务
      */
-//    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 1000)
     private void execute() {
         init();
     }
@@ -57,7 +56,7 @@ public class ThreadPoolTestLauncher {
         public void run() {
             try {
                 Thread.sleep(3000);
-                log.info("线程名称： {}", Thread.currentThread().getName());
+                log.debug("线程名称： {}", Thread.currentThread().getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
