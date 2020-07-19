@@ -1,6 +1,6 @@
-package com.mistra.jmt.service.impl;
+package com.mistra.jmt.test.service.impl;
 
-import com.mistra.jmt.service.JMTService;
+import com.mistra.jmt.test.service.JMTService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

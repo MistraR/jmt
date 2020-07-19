@@ -1,6 +1,6 @@
-package com.mistra.jmt.controller;
+package com.mistra.jmt.test.controller;
 
-import com.mistra.jmt.service.JMTService;
+import com.mistra.jmt.test.service.JMTService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

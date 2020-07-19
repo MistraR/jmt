@@ -1,4 +1,4 @@
-package com.mistra.jmt.service;
+package com.mistra.jmt.test.service;
 
 /**
  * @author Mistra
