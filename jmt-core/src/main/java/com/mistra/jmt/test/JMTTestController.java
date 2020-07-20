@@ -116,10 +116,35 @@ public class JMTTestController {
 //        long a = System.currentTimeMillis();
 //        System.out.println("testModelList集合占用内存大小(估计计算)：" + (JMTMemoryEstimate.unitsMB(JMTMemoryEstimate.jmtSizeOfObject(testModelList))));
 //        System.out.println("testModelList估计计算花费时间：" + (System.currentTimeMillis() - a));
+//
+//
+//        long b = System.currentTimeMillis();
+//        System.out.println("testModelList集合占用内存大小(估计计算)：" + (JMTMemoryEstimate.unitsMB(JMTMemoryEstimate.estimateMap(testModelList))));
+//        System.out.println("testModelList估计计算花费时间：" + (System.currentTimeMillis() - b));
+        return "success";
+    }
 
-
-        long b = System.currentTimeMillis();
+    @GetMapping("/testMemory7/{num}")
+    public String testMemory7(@PathVariable("num") int num) throws InterruptedException {
+        ConcurrentHashMap<String, TestModel> testModelList = createMapData(num);
+        System.out.println("testMemory7---------------------------------------------------------------------");
+        long a = System.currentTimeMillis();
         System.out.println("testModelList集合占用内存大小(估计计算)：" + (JMTMemoryEstimate.unitsMB(JMTMemoryEstimate.estimateMap(testModelList))));
+        System.out.println("testModelList估计计算花费时间：" + (System.currentTimeMillis() - a));
+//
+//
+//        long b = System.currentTimeMillis();
+//        System.out.println("testModelList集合占用内存大小(估计计算)：" + (JMTMemoryEstimate.unitsMB(JMTMemoryEstimate.estimateMap(testModelList))));
+//        System.out.println("testModelList估计计算花费时间：" + (System.currentTimeMillis() - b));
+        return "success";
+    }
+
+    @GetMapping("/testMemory8/{num}")
+    public String testMemory8(@PathVariable("num") int num) throws InterruptedException {
+        ConcurrentHashMap<String, TestModel> testModelList = createMapData(num);
+        System.out.println("testMemory8---------------------------------------------------------------------");
+        long b = System.currentTimeMillis();
+        System.out.println("testModelList集合占用内存大小(估计计算)：" + (JMTMemoryEstimate.unitsMB(RamUsageEstimator.sizeOfObject(testModelList))));
         System.out.println("testModelList估计计算花费时间：" + (System.currentTimeMillis() - b));
         return "success";
     }

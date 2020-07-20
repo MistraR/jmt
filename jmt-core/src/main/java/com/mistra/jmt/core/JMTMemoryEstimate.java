@@ -332,7 +332,7 @@ public class JMTMemoryEstimate {
             List<Long> longList = new ArrayList<>(ACCURACY_NUM);
             for (int i = 0; i < ACCURACY_NUM; i++) {
                 if (collection instanceof List<?>) {
-                    longList.add(jmtSizeOfObject( ((List<?>) collection).get(i)));
+                    longList.add(jmtSizeOfObject(((List<?>) collection).get(i)));
                 } else if (collection instanceof Queue<?>) {
                     longList.add(jmtSizeOfObject(((Queue<?>) collection).peek()));
                 } else if (collection instanceof Set<?>) {
@@ -368,14 +368,18 @@ public class JMTMemoryEstimate {
                 List<Long> longList = new ArrayList<>(ACCURACY_NUM);
                 int count = 0;
                 for (Map.Entry<? extends Object, ? extends Object> objectObjectEntry : map.entrySet()) {
+                    // 计算key value的占用内存大小
                     longList.add(jmtSizeOfObject(objectObjectEntry.getKey()) + jmtSizeOfObject(objectObjectEntry.getValue()));
                     if (++count > ACCURACY_NUM) {
                         break;
                     }
                 }
                 Double objectAvgSize = longList.stream().collect(Collectors.averagingDouble(Long::longValue));
-                BigDecimal objectDeepSize = new BigDecimal(objectAvgSize).multiply(new BigDecimal(map.size()));
-                BigDecimal mapShallowSize = new BigDecimal(shallowSizeOf(map));
+                // 32 为Node对象占用内存大小
+                BigDecimal objectDeepSize = new BigDecimal(objectAvgSize).add(new BigDecimal(32)).multiply(new BigDecimal(map.size()));
+                // Map的数组占用大小
+                long arrSize = map.size() * 4 * 2;
+                BigDecimal mapShallowSize = new BigDecimal(shallowSizeOf(map) + arrSize);
                 return objectDeepSize.add(mapShallowSize).longValue();
             }
         } catch (Exception e) {
