@@ -2,6 +2,7 @@ package com.mistra.jmt.test;
 
 
 import com.mistra.jmt.core.JMTMemoryEstimate;
+import com.mistra.jmt.core.anotation.JMTMethodTime;
 import org.apache.lucene.util.RamUsageEstimator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,6 +96,7 @@ public class JMTTestController {
     }
 
 
+    @JMTMethodTime
     @GetMapping("/testMemory5/{num}")
     public String testMemory5(@PathVariable("num") int num) throws InterruptedException {
         ConcurrentHashMap<String, TestModel> testModelList = createMapData(num);
